@@ -1,59 +1,99 @@
 "use client";
 
 import TextAnimation from "@/components/ui/staggerText";
-import { GlowBorderCard } from "@/components/ui/glow-border-card";
+import { motion } from "framer-motion";
 import { Code2, BarChart3, Wrench } from "lucide-react";
-import SolarSystem from "@/components/ui/solar-system";
+
 const categories = [
   {
     icon: Code2,
     title: "Languages & Frameworks",
-    accent: "text-cyan-400",
-    skills: ["Python", "Django", "SQL", "JavaScript", "HTML5", "CSS3"],
+    accent: "cyan",
+    skills: [
+      { name: "Python", level: 5 },
+      { name: "Django", level: 5 },
+      { name: "SQL", level: 4 },
+      { name: "JavaScript", level: 3 },
+      { name: "HTML5", level: 4 },
+      { name: "CSS3", level: 4 },
+    ],
   },
   {
     icon: BarChart3,
     title: "Data & Analytics",
-    accent: "text-violet-400",
+    accent: "violet",
     skills: [
-      "Excel",
-      "Power BI",
-      "PostgreSQL",
-      "Data Entry",
-      "Reporting",
-      "Chart.js",
+      { name: "Excel", level: 5 },
+      { name: "Power BI", level: 4 },
+      { name: "PostgreSQL", level: 4 },
+      { name: "Data Entry", level: 5 },
+      { name: "Reporting", level: 5 },
+      { name: "Chart.js", level: 4 },
     ],
   },
   {
     icon: Wrench,
     title: "Frontend & Tools",
-    accent: "text-cyan-400",
+    accent: "cyan",
     skills: [
-      "Bootstrap",
-      "Responsive Design",
-      "REST APIs",
-      "Fetch API",
-      "Git",
-      "RBAC",
+      { name: "Bootstrap", level: 4 },
+      { name: "Responsive Design", level: 4 },
+      { name: "REST APIs", level: 4 },
+      { name: "Fetch API", level: 4 },
+      { name: "Git", level: 4 },
+      { name: "RBAC", level: 4 },
     ],
   },
 ];
 
-const extras = [
-  "Office Administration",
-  "Scheduling",
-  "CCTV / DVR Systems",
-  "Power BI",
+const coreSkills = [
+  "Python",
+  "Django",
   "PostgreSQL",
+  "SQL",
+  "Excel",
+  "Power BI",
+  "JavaScript",
+  "REST APIs",
+  "Git",
+  "RBAC",
+  "Bootstrap",
+  "Chart.js",
 ];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" as const },
+  },
+};
+
+function ProficiencyDots({ level, accent }: { level: number; accent: string }) {
+  const filled = accent === "violet" ? "bg-violet-400" : "bg-cyan-400";
+  return (
+    <div className="flex items-center gap-1 shrink-0">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <span
+          key={i}
+          className={`h-1.5 w-1.5 rounded-full ${
+            i <= level ? filled : "bg-neutral-800"
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative w-full max-w-6xl mx-auto px-6 py-24 scroll-mt-32"
+      className="relative w-full max-w-6xl mx-auto px-6 py-24 scroll-mt-24"
     >
-      <div className="mb-14 text-center">
+      {/* ── Heading ── */}
+      <div className="mb-16 text-center">
         <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-3">
           02 — Skills
         </p>
@@ -68,68 +108,80 @@ export default function Skills() {
         </p>
       </div>
 
-      {/* ── Solar system visualization ── */}
-<div className="mb-8">
-  <SolarSystem centerLogo="/profile.jpeg" centerLogoAlt="Muhammad Jasim" />
-</div>
-
-{/* ── "Browse by category" label ── */}
-<p className="text-center text-neutral-500 text-xs uppercase tracking-widest mb-8">
-  Or browse by category
-</p>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-16">
-        {categories.map(({ icon: Icon, title, accent, skills }) => (
-          <div key={title} className="flex justify-center w-full">
-            <GlowBorderCard
-              className="overflow-visible bg-transparent dark:bg-transparent"
-              width="100%"
-              height="400px"
-              aspectRatio="auto"
-              borderRadius="1.25rem"
-              animationDuration={8}
-              colorPreset="aurora"
-              borderWidth="0.35em"
-              blurAmount="0.9em"
-              inset="-1.2em"
-            >
-              {/* Solid dark layer covers the glow inside the card */}
-              <div className="relative -m-4 h-[calc(100%+2rem)] w-[calc(100%+2rem)] rounded-[1.25rem] bg-[#0b0b12] p-6 flex flex-col text-left">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500/20 to-violet-500/20 border border-neutral-800">
-                    <Icon className={`h-5 w-5 ${accent}`} />
+      {/* ── Three clean category cards ── */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        {categories.map(
+          ({ icon: Icon, title, accent, skills }, index) => {
+            const isViolet = accent === "violet";
+            return (
+              <motion.div
+                key={title}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ delay: index * 0.1 }}
+                className={`group relative rounded-2xl border border-neutral-800 bg-neutral-950/60 p-6 transition-all duration-300 hover:-translate-y-1 ${
+                  isViolet
+                    ? "hover:border-violet-500/40 hover:shadow-[0_0_40px_-12px_rgba(168,85,247,0.35)]"
+                    : "hover:border-cyan-500/40 hover:shadow-[0_0_40px_-12px_rgba(34,211,238,0.35)]"
+                }`}
+              >
+                {/* Card header */}
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-neutral-800">
+                  <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-lg border ${
+                      isViolet
+                        ? "bg-violet-500/10 border-violet-500/20"
+                        : "bg-cyan-500/10 border-cyan-500/20"
+                    }`}
+                  >
+                    <Icon
+                      className={`h-5 w-5 ${
+                        isViolet ? "text-violet-400" : "text-cyan-400"
+                      }`}
+                    />
                   </div>
-                  <h3 className="text-white font-semibold text-lg leading-tight">
+                  <h3 className="text-white font-semibold text-base leading-tight">
                     {title}
                   </h3>
                 </div>
 
-                <ul className="space-y-2.5">
-                  {skills.map((s) => (
+                {/* Skill list with proficiency dots */}
+                <ul className="space-y-3.5">
+                  {skills.map(({ name, level }) => (
                     <li
-                      key={s}
-                      className="flex items-center gap-2 text-neutral-200 text-sm"
+                      key={name}
+                      className="flex items-center justify-between gap-3"
                     >
-                      <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-cyan-400 to-violet-500 shrink-0" />
-                      {s}
+                      <span className="text-neutral-200 text-sm truncate">
+                        {name}
+                      </span>
+                      <ProficiencyDots level={level} accent={accent} />
                     </li>
                   ))}
                 </ul>
-              </div>
-            </GlowBorderCard>
-          </div>
-        ))}
+              </motion.div>
+            );
+          }
+        )}
       </div>
 
-      <div className="flex flex-wrap justify-center gap-3">
-        {extras.map((tag) => (
-          <span
-            key={tag}
-            className="px-4 py-2 rounded-full border border-neutral-800 bg-neutral-950/80 text-neutral-200 text-sm hover:border-cyan-400/50 hover:text-cyan-400 transition-colors backdrop-blur-sm"
-          >
-            {tag}
-          </span>
-        ))}
+      {/* ── Core competencies chips ── */}
+      <div>
+        <p className="text-center text-neutral-500 text-xs uppercase tracking-widest mb-4">
+          Core Competencies
+        </p>
+        <div className="flex flex-wrap justify-center gap-2.5 max-w-4xl mx-auto">
+          {coreSkills.map((tag) => (
+            <span
+              key={tag}
+              className="px-4 py-2 rounded-full border border-neutral-800 bg-neutral-950/60 text-neutral-300 text-sm hover:border-cyan-400/50 hover:text-cyan-400 transition-colors"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

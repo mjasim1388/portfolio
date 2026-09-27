@@ -71,7 +71,7 @@ export default function About() {
 
         {/* ── Info card ── */}
         <div className="md:col-span-2">
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-950/60 p-6 backdrop-blur-sm">
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-950/60 p-6 ">
             <h3 className="text-white font-semibold mb-5 text-lg">
               Quick Info
             </h3>

@@ -29,34 +29,34 @@ export default function Background() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#07070b]" />
 
       <style jsx>{`
-        .orb {
-          position: absolute;
-          border-radius: 9999px;
-          filter: blur(120px);
-          opacity: 0.4;
-          will-change: transform;
-        }
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.35;
+  will-change: transform;
+}
         .orb-cyan {
           top: -15%;
           left: -10%;
-          width: 620px;
-          height: 620px;
+          width: 380px;
+          height: 380px;
           background: radial-gradient(circle, #22d3ee 0%, transparent 70%);
           animation: float-a 22s ease-in-out infinite;
         }
         .orb-violet {
           top: 30%;
           right: -15%;
-          width: 560px;
-          height: 560px;
+          width: 340px;
+          height: 340px;
           background: radial-gradient(circle, #7c5cff 0%, transparent 70%);
           animation: float-b 28s ease-in-out infinite;
         }
         .orb-fuchsia {
           bottom: -20%;
           left: 30%;
-          width: 600px;
-          height: 600px;
+          width: 360px;
+          height: 360px;
           background: radial-gradient(circle, #e879f9 0%, transparent 70%);
           opacity: 0.25;
           animation: float-c 34s ease-in-out infinite;

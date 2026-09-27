@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,9 +14,54 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Muhammad Jasim — CS Graduate · Django & Python Developer",
+  metadataBase: new URL("https://muhammad-jasim.vercel.app"),
+  title: {
+    default: "Muhammad Jasim — CS Graduate & Django Developer",
+    template: "%s | Muhammad Jasim",
+  },
   description:
     "Portfolio of Muhammad Jasim — CS graduate from Peshawar, Pakistan. Django, Python, SQL, Excel, Power BI. Built a full-stack Coal Mining Management System.",
+  keywords: [
+    "Muhammad Jasim",
+    "Django Developer",
+    "Python Developer",
+    "Full-Stack Developer",
+    "Data Analyst",
+    "Power BI",
+    "SQL",
+    "Peshawar",
+    "Pakistan",
+    "CS Graduate",
+  ],
+  authors: [{ name: "Muhammad Jasim" }],
+  creator: "Muhammad Jasim",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://muhammad-jasim.vercel.app",
+    siteName: "Muhammad Jasim — Portfolio",
+    title: "Muhammad Jasim — CS Graduate & Django Developer",
+    description:
+      "Full-stack projects, data analytics, and certifications. Open to Data, Dev & Admin roles.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Muhammad Jasim Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Muhammad Jasim — CS Graduate & Django Developer",
+    description: "Full-stack projects, data analytics, and certifications.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -26,6 +72,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-[#07070b] text-neutral-100">
         {children}
+        <Analytics />
       </body>
     </html>
   );

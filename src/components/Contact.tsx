@@ -117,7 +117,7 @@ export default function Contact() {
             whileInView="show"
             viewport={{ once: true, margin: "-80px" }}
             transition={{ delay: i * 0.08 }}
-            className="group rounded-2xl border border-neutral-800 bg-neutral-950/70 backdrop-blur-sm p-6 hover:border-cyan-400/40 transition-colors"
+            className="group rounded-2xl border border-neutral-800 bg-neutral-950/70  p-6 hover:border-cyan-400/40 transition-colors"
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500/20 to-violet-500/20 border border-neutral-800">

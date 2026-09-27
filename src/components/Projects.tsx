@@ -196,7 +196,7 @@ function OtherProjectCard({
       whileInView="show"
       viewport={{ once: true, margin: "-80px" }}
       transition={{ delay: index * 0.1 }}
-      className="group rounded-2xl border border-neutral-800 bg-neutral-950/70 backdrop-blur-sm p-5 flex flex-col hover:border-neutral-700 transition-colors"
+      className="group rounded-2xl border border-neutral-800 bg-neutral-950/70  p-5 flex flex-col hover:border-neutral-700 transition-colors"
     >
       {/* Gallery */}
       <div className="mb-5">
@@ -313,7 +313,7 @@ export default function Projects() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="rounded-2xl border border-neutral-800 bg-neutral-950/70 backdrop-blur-sm overflow-hidden mb-10"
+        className="rounded-2xl border border-neutral-800 bg-neutral-950/70  overflow-hidden mb-10"
       >
         <div className="grid lg:grid-cols-2 gap-0">
           <div className="p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-neutral-800">

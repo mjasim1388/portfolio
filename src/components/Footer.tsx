@@ -76,7 +76,7 @@ export default function Footer() {
       {/* Back to top */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-neutral-800 bg-neutral-950/80 backdrop-blur-sm text-neutral-300 hover:border-cyan-400/50 hover:text-cyan-400 transition-colors"
+        className="fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-neutral-800 bg-neutral-950/80  text-neutral-300 hover:border-cyan-400/50 hover:text-cyan-400 transition-colors"
         aria-label="Back to top"
       >
         <ArrowUp className="h-4 w-4" />

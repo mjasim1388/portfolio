@@ -74,7 +74,7 @@ export default function Certifications() {
               whileInView="show"
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: i * 0.1 }}
-              className={`group rounded-2xl border border-neutral-800 bg-neutral-950/70 backdrop-blur-sm p-6 hover:border-${accent}-400/40 transition-colors`}
+              className={`group rounded-2xl border border-neutral-800 bg-neutral-950/70  p-6 hover:border-${accent}-400/40 transition-colors`}
             >
               {/* Icon + Award badge */}
               <div className="flex items-start justify-between mb-5">

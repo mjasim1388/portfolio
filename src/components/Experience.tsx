@@ -107,7 +107,7 @@ export default function Experience() {
                 {/* Dot on the timeline */}
                 <div className="absolute -left-[31px] top-2 h-3 w-3 rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 ring-4 ring-[#07070b]" />
 
-                <div className="rounded-xl border border-neutral-800 bg-neutral-950/70 backdrop-blur-sm p-5 hover:border-cyan-400/40 transition-colors">
+                <div className="rounded-xl border border-neutral-800 bg-neutral-950/70  p-5 hover:border-cyan-400/40 transition-colors">
                   <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
                     <h4 className="text-white font-semibold text-base">
                       {job.role}
@@ -156,7 +156,7 @@ export default function Experience() {
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true, margin: "-80px" }}
-                    className="rounded-xl border border-neutral-800 bg-neutral-950/70 backdrop-blur-sm p-5 hover:border-violet-400/40 transition-colors"
+                    className="rounded-xl border border-neutral-800 bg-neutral-950/70  p-5 hover:border-violet-400/40 transition-colors"
                   >
                     <div className="flex items-start gap-3">
                       <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500/20 to-violet-500/20 border border-neutral-800 shrink-0">
@@ -195,7 +195,7 @@ export default function Experience() {
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true, margin: "-80px" }}
-                    className="rounded-xl border border-neutral-800 bg-neutral-950/70 backdrop-blur-sm p-5 hover:border-cyan-400/40 transition-colors"
+                    className="rounded-xl border border-neutral-800 bg-neutral-950/70  p-5 hover:border-cyan-400/40 transition-colors"
                   >
                     <div className="flex items-start gap-3">
                       <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500/20 to-violet-500/20 border border-neutral-800 shrink-0">
