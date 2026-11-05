@@ -2,16 +2,17 @@
 
 import { useState } from "react";
 import TextAnimation from "@/components/ui/staggerText";
+import ContactForm from "@/components/ContactForm";
 import SocialFlipButton, {
   type SocialItem,
 } from "@/components/ui/social-flip-button";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Copy, Check, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Copy, Check } from "lucide-react";
 import {
   FaGithub,
   FaLinkedinIn,
   FaEnvelope,
-  FaPhoneAlt,
+  FaWhatsapp,
 } from "react-icons/fa";
 
 const contactItems = [
@@ -19,14 +20,14 @@ const contactItems = [
     icon: Mail,
     label: "Email",
     value: "jasimafridi1388@gmail.com",
-    href: "mailto:jasimafridi1388@gmail.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=jasimafridi1388@gmail.com",
     copyable: true,
   },
   {
     icon: Phone,
-    label: "Phone",
+    label: "WhatsApp / Call",
     value: "+92 300 0949457",
-    href: "tel:+923000949457",
+    href: "https://wa.me/923000949457",
     copyable: true,
   },
   {
@@ -52,16 +53,16 @@ const socials: SocialItem[] = [
     href: "https://linkedin.com/in/mjasim1388",
   },
   {
+    letter: "W",
+    icon: <FaWhatsapp />,
+    label: "WhatsApp",
+    href: "https://wa.me/923000949457",
+  },
+  {
     letter: "E",
     icon: <FaEnvelope />,
     label: "Email",
-    href: "mailto:jasimafridi1388@gmail.com",
-  },
-  {
-    letter: "C",
-    icon: <FaPhoneAlt />,
-    label: "Call",
-    href: "tel:+923000949457",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=jasimafridi1388@gmail.com",
   },
 ];
 
@@ -103,11 +104,10 @@ export default function Contact() {
         </h2>
         <p className="text-neutral-400 mt-4 max-w-2xl mx-auto">
           Open to Data, Development, and Administration roles. The fastest way
-          to reach me is email — I usually reply within a day.
+          to reach me is via Email or WhatsApp.
         </p>
       </div>
 
-      {/* ── Contact cards ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         {contactItems.map(({ icon: Icon, label, value, href, copyable }, i) => (
           <motion.div
@@ -117,7 +117,7 @@ export default function Contact() {
             whileInView="show"
             viewport={{ once: true, margin: "-80px" }}
             transition={{ delay: i * 0.08 }}
-            className="group rounded-2xl border border-neutral-800 bg-neutral-950/70  p-6 hover:border-cyan-400/40 transition-colors"
+            className="group rounded-2xl border border-neutral-800 bg-neutral-950/70 backdrop-blur-sm p-6 hover:border-cyan-400/40 transition-colors flex flex-col"
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500/20 to-violet-500/20 border border-neutral-800">
@@ -137,13 +137,13 @@ export default function Contact() {
                 </button>
               )}
             </div>
-            <p className="text-neutral-500 text-xs uppercase tracking-wider mb-1">
+            <p className="text-neutral-500 text-xs uppercase tracking-wider mb-1 mt-auto">
               {label}
             </p>
             <a
               href={href}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-neutral-200 text-sm break-all hover:text-cyan-400 transition-colors"
             >
               {value}
@@ -152,7 +152,6 @@ export default function Contact() {
         ))}
       </div>
 
-      {/* ── Social flip buttons ── */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
@@ -171,21 +170,20 @@ export default function Contact() {
         />
       </motion.div>
 
-      {/* ── Big CTA ── */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="text-center"
+        className="mt-16"
       >
-        <a
-          href="mailto:jasimafridi1388@gmail.com"
-          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 to-violet-500 text-black font-semibold hover:opacity-90 transition-opacity"
-        >
-          <Send className="h-4 w-4" />
-          Send me an email
-        </a>
+        <div className="text-center mb-8">
+          <h3 className="text-2xl font-bold text-white mb-2">Send a Message</h3>
+          <p className="text-neutral-400 text-sm">
+            Fill out the form below and I&apos;ll reply to your email.
+          </p>
+        </div>
+        <ContactForm />
       </motion.div>
     </section>
   );
