@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link"; // <-- Imported Link
 import { Menu, X } from "lucide-react";
 import HireButton from "@/components/HireButton";
 
@@ -25,9 +26,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Track active section via IntersectionObserver
   useEffect(() => {
-    // Only observe internal links (ignores /blog)
     const ids = ["home", ...items.filter((i) => !i.external).map((i) => i.href.replace("#", ""))];
     const observers: IntersectionObserver[] = [];
 
@@ -47,16 +46,6 @@ export default function Navbar() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  const go = (href: string, external?: boolean) => {
-    setOpen(false);
-    if (external) {
-      window.location.href = href;
-      return;
-    }
-    const target = document.querySelector(href);
-    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
   return (
     <>
       <header
@@ -72,55 +61,51 @@ export default function Navbar() {
             href="#home"
             onClick={(e) => {
               e.preventDefault();
-              go("#home");
+              document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
             }}
             className="flex items-center gap-1.5 font-mono text-sm group"
           >
-            <span className="text-neutral-500 group-hover:text-neutral-400 transition-colors">
-              ~/
-            </span>
-            <span className="text-white font-semibold group-hover:text-cyan-400 transition-colors">
-              mjasim
-            </span>
-            <span
-              className="inline-block w-[7px] h-4 bg-cyan-400"
-              style={{ animation: "cursorBlink 1.1s steps(2) infinite" }}
-            />
+            <span className="text-neutral-500 group-hover:text-neutral-400 transition-colors">~/</span>
+            <span className="text-white font-semibold group-hover:text-cyan-400 transition-colors">mjasim</span>
+            <span className="inline-block w-[7px] h-4 bg-cyan-400" style={{ animation: "cursorBlink 1.1s steps(2) infinite" }} />
           </a>
 
           {/* ── Center: nav links ── */}
           <ul className="hidden md:flex items-center gap-1 font-mono text-[11px]">
             {items.map((item) => {
               const isActive = active === item.href.replace("#", "");
+              
+              // Render Next.js Link for external pages (like /blog)
+              if (item.external) {
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="nav-link relative inline-block px-3 py-2 rounded-md uppercase tracking-[0.15em] transition-all duration-300 ease-out hover:-translate-y-0.5 text-neutral-500 hover:text-white"
+                    >
+                      <span className="inline-block">{item.label}</span>
+                      <span className="pointer-events-none absolute left-1/2 -bottom-0.5 h-[1px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-cyan-400 to-transparent transition-all duration-300 ease-out nav-link-glow" />
+                    </Link>
+                  </li>
+                );
+              }
+
+              // Render standard anchor for page sections (#about, #skills)
               return (
                 <li key={item.href}>
                   <a
                     href={item.href}
                     onClick={(e) => {
-                      if (!item.external) e.preventDefault();
-                      go(item.href, item.external);
+                      e.preventDefault();
+                      document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth", block: "start" });
                     }}
                     className={`nav-link relative inline-block px-3 py-2 rounded-md uppercase tracking-[0.15em] transition-all duration-300 ease-out will-change-transform hover:-translate-y-0.5 ${
-                      isActive
-                        ? "text-cyan-400"
-                        : "text-neutral-500 hover:text-white"
+                      isActive ? "text-cyan-400" : "text-neutral-500 hover:text-white"
                     }`}
                   >
-                    {/* Active dot */}
-                    {isActive && (
-                      <span className="absolute left-1 top-1/2 -translate-y-1/2 h-1 w-1 rounded-full bg-cyan-400" />
-                    )}
-
-                    <span className={`inline-block transition-transform duration-300 ${isActive ? "pl-3" : ""}`}>
-                      {item.label}
-                    </span>
-
-                    {/* Soft glow underline — appears on hover */}
-                    <span
-                      className={`pointer-events-none absolute left-1/2 -bottom-0.5 h-[1px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-cyan-400 to-transparent transition-all duration-300 ease-out ${
-                        isActive ? "w-full" : "group-hover:w-full nav-link-glow"
-                      }`}
-                    />
+                    {isActive && <span className="absolute left-1 top-1/2 -translate-y-1/2 h-1 w-1 rounded-full bg-cyan-400" />}
+                    <span className={`inline-block transition-transform duration-300 ${isActive ? "pl-3" : ""}`}>{item.label}</span>
+                    <span className={`pointer-events-none absolute left-1/2 -bottom-0.5 h-[1px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-cyan-400 to-transparent transition-all duration-300 ease-out ${isActive ? "w-full" : "group-hover:w-full nav-link-glow"}`} />
                   </a>
                 </li>
               );
@@ -130,11 +115,9 @@ export default function Navbar() {
           {/* ── Right: hire_me + mobile ── */}
           <div className="flex items-center gap-2">
             <HireButton />
-
             <button
               onClick={() => setOpen(!open)}
               className="md:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-800 text-neutral-300 hover:text-white transition-colors"
-              aria-label="Toggle menu"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -148,22 +131,35 @@ export default function Navbar() {
           <ul className="flex flex-col gap-2 font-mono">
             {items.map((item) => {
               const isActive = active === item.href.replace("#", "");
+              
+              if (item.external) {
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm border transition-all duration-300 text-neutral-300 border-transparent hover:bg-neutral-900/50 hover:translate-x-1"
+                    >
+                      <span className="text-neutral-600">$</span>{item.label}
+                    </Link>
+                  </li>
+                );
+              }
+
               return (
                 <li key={item.href}>
                   <a
                     href={item.href}
                     onClick={(e) => {
-                      if (!item.external) e.preventDefault();
-                      go(item.href, item.external);
+                      e.preventDefault();
+                      setOpen(false);
+                      document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth", block: "start" });
                     }}
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm border transition-all duration-300 ${
-                      isActive
-                        ? "bg-cyan-400/10 text-cyan-400 border-cyan-400/20"
-                        : "text-neutral-300 border-transparent hover:bg-neutral-900/50 hover:translate-x-1"
+                      isActive ? "bg-cyan-400/10 text-cyan-400 border-cyan-400/20" : "text-neutral-300 border-transparent hover:bg-neutral-900/50 hover:translate-x-1"
                     }`}
                   >
-                    <span className="text-neutral-600">$</span>
-                    {item.label}
+                    <span className="text-neutral-600">$</span>{item.label}
                   </a>
                 </li>
               );
@@ -183,25 +179,11 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* ── Keyframes + hover glow ── */}
       <style jsx global>{`
-        @keyframes cursorBlink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
-        }
-
-        .nav-link:hover {
-          text-shadow: 0 0 12px rgba(34, 211, 238, 0.5);
-        }
-
-        .nav-link:hover .nav-link-glow {
-          width: 100%;
-          transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-link .nav-link-glow {
-          transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        @keyframes cursorBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+        .nav-link:hover { text-shadow: 0 0 12px rgba(34, 211, 238, 0.5); }
+        .nav-link:hover .nav-link-glow { width: 100%; transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-link .nav-link-glow { transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
       `}</style>
     </>
   );
