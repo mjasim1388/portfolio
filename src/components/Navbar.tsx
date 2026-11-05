@@ -1,17 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link"; // <-- Imported Link
-import { Menu, X } from "lucide-react";
-import HireButton from "@/components/HireButton";
+import Link from "next/link";
+import { Menu, X, Search, ArrowUpRight } from "lucide-react";
 
 const items = [
-  { label: "about", href: "#about" },
-  { label: "skills", href: "#skills" },
-  { label: "experience", href: "#experience" },
-  { label: "work", href: "#projects" },
-  { label: "blog", href: "/blog", external: true },
-  { label: "contact", href: "#contact" },
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Experience", href: "#experience" },
+  { label: "Work", href: "#projects" },
+  { label: "Blog", href: "/blog", external: true },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -37,7 +36,7 @@ export default function Navbar() {
         ([entry]) => {
           if (entry.isIntersecting) setActive(id);
         },
-        { rootMargin: "-40% 0px -55% 0px" }
+        { rootMargin: "-20% 0px -50% 0px" }
       );
       obs.observe(el);
       observers.push(obs);
@@ -46,51 +45,51 @@ export default function Navbar() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  const triggerSearch = () => {
+    document.dispatchEvent(new Event("open-command-palette"));
+  };
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#07070b]/85 backdrop-blur-xl border-b border-neutral-800/60"
-            : "bg-transparent border-b border-transparent"
+            ? "bg-[#07070b]/70 backdrop-blur-xl border-b border-neutral-800/50 py-3"
+            : "bg-transparent border-b border-transparent py-5"
         }`}
       >
-        <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          {/* ── Left: terminal path ── */}
+        <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+          
+          {/* ── Left: Logo / Name ── */}
           <a
             href="#home"
             onClick={(e) => {
               e.preventDefault();
               document.getElementById("home")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="flex items-center gap-1.5 font-mono text-sm group"
+            className="flex items-center gap-2 group"
           >
-            <span className="text-neutral-500 group-hover:text-neutral-400 transition-colors">~/</span>
-            <span className="text-white font-semibold group-hover:text-cyan-400 transition-colors">mjasim</span>
-            <span className="inline-block w-[7px] h-4 bg-cyan-400" style={{ animation: "cursorBlink 1.1s steps(2) infinite" }} />
+            <span className="text-white font-semibold text-lg tracking-tight hover:text-neutral-300 transition-colors">
+              Muhammad Jasim
+            </span>
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
           </a>
 
-          {/* ── Center: nav links ── */}
-          <ul className="hidden md:flex items-center gap-1 font-mono text-[11px]">
+          {/* ── Center: Nav Links ── */}
+          <ul className="hidden lg:flex items-center gap-8 text-sm font-medium text-neutral-400">
             {items.map((item) => {
               const isActive = active === item.href.replace("#", "");
               
-              // Render Next.js Link for external pages (like /blog)
               if (item.external) {
                 return (
                   <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="nav-link relative inline-block px-3 py-2 rounded-md uppercase tracking-[0.15em] transition-all duration-300 ease-out hover:-translate-y-0.5 text-neutral-500 hover:text-white"
-                    >
-                      <span className="inline-block">{item.label}</span>
-                      <span className="pointer-events-none absolute left-1/2 -bottom-0.5 h-[1px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-cyan-400 to-transparent transition-all duration-300 ease-out nav-link-glow" />
+                    <Link href={item.href} className="hover:text-white transition-colors">
+                      {item.label}
                     </Link>
                   </li>
                 );
               }
 
-              // Render standard anchor for page sections (#about, #skills)
               return (
                 <li key={item.href}>
                   <a
@@ -99,53 +98,73 @@ export default function Navbar() {
                       e.preventDefault();
                       document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth", block: "start" });
                     }}
-                    className={`nav-link relative inline-block px-3 py-2 rounded-md uppercase tracking-[0.15em] transition-all duration-300 ease-out will-change-transform hover:-translate-y-0.5 ${
-                      isActive ? "text-cyan-400" : "text-neutral-500 hover:text-white"
+                    className={`relative transition-colors hover:text-white ${
+                      isActive ? "text-white" : ""
                     }`}
                   >
-                    {isActive && <span className="absolute left-1 top-1/2 -translate-y-1/2 h-1 w-1 rounded-full bg-cyan-400" />}
-                    <span className={`inline-block transition-transform duration-300 ${isActive ? "pl-3" : ""}`}>{item.label}</span>
-                    <span className={`pointer-events-none absolute left-1/2 -bottom-0.5 h-[1px] w-0 -translate-x-1/2 bg-gradient-to-r from-transparent via-cyan-400 to-transparent transition-all duration-300 ease-out ${isActive ? "w-full" : "group-hover:w-full nav-link-glow"}`} />
+                    {item.label}
+                    {isActive && (
+                      <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400" />
+                    )}
                   </a>
                 </li>
               );
             })}
           </ul>
 
-          {/* ── Right: hire_me + mobile ── */}
-          <div className="flex items-center gap-2">
-            <HireButton />
+          {/* ── Right: Search + CTA ── */}
+          <div className="flex items-center gap-4">
+            
+            {/* Command K Button */}
+            <button
+              onClick={triggerSearch}
+              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-md border border-neutral-800 bg-neutral-900/50 text-neutral-400 text-xs font-medium hover:border-neutral-700 hover:text-white transition-all group"
+            >
+              <Search className="h-3.5 w-3.5" />
+              <span>Search</span>
+              <kbd className="ml-1 bg-neutral-800 text-[10px] px-1.5 py-0.5 rounded text-neutral-500 group-hover:text-neutral-300 font-mono">
+                ⌘K
+              </kbd>
+            </button>
+
+            {/* Premium CTA */}
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-colors"
+            >
+              Let's Talk
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+
+            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setOpen(!open)}
-              className="md:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-800 text-neutral-300 hover:text-white transition-colors"
+              className="lg:hidden flex h-9 w-9 items-center justify-center text-neutral-300 hover:text-white transition-colors"
             >
-              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </nav>
       </header>
 
-      {/* ── Mobile menu overlay ── */}
+      {/* ── Mobile Menu Overlay ── */}
       {open && (
-        <div className="md:hidden fixed inset-0 z-40 bg-[#07070b]/98 backdrop-blur-xl pt-24 px-6">
-          <ul className="flex flex-col gap-2 font-mono">
+        <div className="lg:hidden fixed inset-0 z-40 bg-[#07070b]/98 backdrop-blur-xl pt-24 px-6 flex flex-col">
+          <ul className="flex flex-col gap-6 text-lg font-medium text-neutral-300">
             {items.map((item) => {
-              const isActive = active === item.href.replace("#", "");
-              
               if (item.external) {
                 return (
                   <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm border transition-all duration-300 text-neutral-300 border-transparent hover:bg-neutral-900/50 hover:translate-x-1"
-                    >
-                      <span className="text-neutral-600">$</span>{item.label}
+                    <Link href={item.href} onClick={() => setOpen(false)} className="hover:text-white transition-colors">
+                      {item.label}
                     </Link>
                   </li>
                 );
               }
-
               return (
                 <li key={item.href}>
                   <a
@@ -155,36 +174,40 @@ export default function Navbar() {
                       setOpen(false);
                       document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth", block: "start" });
                     }}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm border transition-all duration-300 ${
-                      isActive ? "bg-cyan-400/10 text-cyan-400 border-cyan-400/20" : "text-neutral-300 border-transparent hover:bg-neutral-900/50 hover:translate-x-1"
-                    }`}
+                    className="hover:text-white transition-colors"
                   >
-                    <span className="text-neutral-600">$</span>{item.label}
+                    {item.label}
                   </a>
                 </li>
               );
             })}
-            <li className="mt-4">
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-gradient-to-r from-cyan-400 to-violet-500 text-black font-semibold text-sm"
-              >
-                hire_me
-              </button>
-            </li>
           </ul>
+
+          <div className="mt-12 pt-8 border-t border-neutral-800 flex flex-col gap-4">
+             <button
+              onClick={() => {
+                setOpen(false);
+                triggerSearch();
+              }}
+              className="flex items-center justify-between w-full px-4 py-3 rounded-xl border border-neutral-800 bg-neutral-900/50 text-neutral-300"
+            >
+              <span className="flex items-center gap-2"><Search className="h-4 w-4" /> Search</span>
+              <kbd className="font-mono text-xs text-neutral-500">⌘K</kbd>
+            </button>
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                setOpen(false);
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-white text-black font-semibold"
+            >
+              Let's Talk <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
         </div>
       )}
-
-      <style jsx global>{`
-        @keyframes cursorBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-        .nav-link:hover { text-shadow: 0 0 12px rgba(34, 211, 238, 0.5); }
-        .nav-link:hover .nav-link-glow { width: 100%; transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
-        .nav-link .nav-link-glow { transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
-      `}</style>
     </>
   );
 }

@@ -193,9 +193,9 @@ export default function Hero() {
           className="grid grid-cols-3 gap-4 max-w-2xl mx-auto pt-10 border-t border-neutral-800/60"
         >
           {[
-            { value: "3", label: "Projects" },
-            { value: "2+", label: "Years Experience" },
-            { value: "3", label: "Certifications" },
+            { value: "100K+", label: "Orders Analyzed" },
+            { value: "4", label: "RBAC Roles Built" },
+            { value: "6", label: "SQL Analyses" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-b from-white to-neutral-400 bg-clip-text text-transparent">

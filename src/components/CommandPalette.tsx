@@ -15,14 +15,24 @@ export default function CommandPalette() {
   const router = useRouter(); // <-- Initialize Router
 
   useEffect(() => {
+    // 1. Keyboard shortcut
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((open) => !open);
       }
     };
+    
+    // 2. Custom event from Navbar
+    const openMenu = () => setOpen(true);
+
     document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    document.addEventListener("open-command-palette", openMenu);
+    
+    return () => {
+      document.removeEventListener("keydown", down);
+      document.removeEventListener("open-command-palette", openMenu);
+    };
   }, []);
 
   const runCommand = (command: () => void) => {
