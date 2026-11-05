@@ -43,20 +43,11 @@ export const metadata: Metadata = {
     title: "Muhammad Jasim — CS Graduate & Django Developer",
     description:
       "Full-stack projects, data analytics, and certifications. Open to Data, Dev & Admin roles.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Muhammad Jasim Portfolio",
-      },
-    ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "Muhammad Jasim — CS Graduate & Django Developer",
     description: "Full-stack projects, data analytics, and certifications.",
-    images: ["/og-image.png"],
   },
   robots: {
     index: true,
