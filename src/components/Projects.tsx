@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image"; // <-- Added Next.js Image
 import TextAnimation from "@/components/ui/staggerText";
 import { motion } from "framer-motion";
 import {
@@ -86,7 +88,6 @@ const otherProjects = [
       { icon: Layers, text: "Cloud PostgreSQL via Supabase" },
     ],
     stack: ["Python", "Streamlit", "Supabase", "PostgreSQL", "SQLAlchemy", "Plotly"],
-    // ⚠️ Update this URL if your repo name differs
     github: "https://github.com/mjasim1388/schoolpulse",
     live: null,
   },
@@ -139,12 +140,13 @@ function Gallery({
 }) {
   return (
     <div>
-      <div className="rounded-xl overflow-hidden border border-neutral-800 bg-black aspect-video mb-3">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+      <div className="relative rounded-xl overflow-hidden border border-neutral-800 bg-black aspect-video mb-3">
+        <Image
           src={screenshots[active].src}
           alt={screenshots[active].label}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
 
@@ -157,7 +159,7 @@ function Gallery({
             <button
               key={s.src}
               onClick={() => onSelect(i)}
-              className={`rounded-lg overflow-hidden border-2 aspect-video transition-all ${
+              className={`relative rounded-lg overflow-hidden border-2 aspect-video transition-all ${
                 active === i
                   ? "opacity-100"
                   : "border-neutral-800 opacity-60 hover:opacity-100 hover:border-neutral-700"
@@ -165,11 +167,12 @@ function Gallery({
               style={{ borderColor: active === i ? accent : undefined }}
               aria-label={`Show ${s.label} screenshot`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={s.src}
                 alt={s.label}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 25vw, 150px"
               />
             </button>
           ))}
@@ -196,7 +199,7 @@ function OtherProjectCard({
       whileInView="show"
       viewport={{ once: true, margin: "-80px" }}
       transition={{ delay: index * 0.1 }}
-      className="group rounded-2xl border border-neutral-800 bg-neutral-950/70  p-5 flex flex-col hover:border-neutral-700 transition-colors"
+      className="group rounded-2xl border border-neutral-800 bg-neutral-950/70 p-5 flex flex-col hover:border-neutral-700 transition-colors"
     >
       {/* Gallery */}
       <div className="mb-5">
@@ -211,9 +214,9 @@ function OtherProjectCard({
       {/* Content */}
       <div className="flex flex-col flex-1">
         <div className="mb-4">
-          <h3 className="text-white font-semibold text-lg leading-tight mb-1">
-            {project.title}
-          </h3>
+<h3 className="text-white font-semibold text-lg leading-tight mb-1 hover:text-cyan-400 transition-colors">
+  <Link href={`/projects/${project.id}`}>{project.title}</Link>
+</h3>
           <p className="text-neutral-500 text-xs font-mono uppercase tracking-wider">
             {project.subtitle}
           </p>
@@ -313,7 +316,7 @@ export default function Projects() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
-        className="rounded-2xl border border-neutral-800 bg-neutral-950/70  overflow-hidden mb-10"
+        className="rounded-2xl border border-neutral-800 bg-neutral-950/70 overflow-hidden mb-10"
       >
         <div className="grid lg:grid-cols-2 gap-0">
           <div className="p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-neutral-800">
@@ -338,9 +341,9 @@ export default function Projects() {
                   Solo
                 </span>
               </div>
-              <h3 className="text-white font-bold text-2xl mb-2">
-                Coal Mining Management System
-              </h3>
+<h3 className="text-white font-bold text-2xl mb-2 hover:text-cyan-400 transition-colors">
+  <Link href="/projects/coal-mining">Coal Mining Management System</Link>
+</h3>
               <p className="text-neutral-400 text-sm leading-relaxed">
                 A full-stack Django web application designed to digitize mining
                 operations — from employee records to production tracking,

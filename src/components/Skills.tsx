@@ -20,15 +20,15 @@ const categories = [
   },
   {
     icon: BarChart3,
-    title: "Data & Analytics",
+    title: "Data & Business",
     accent: "violet",
     skills: [
       { name: "Excel", level: 5 },
-      { name: "Power BI", level: 4 },
+      { name: "Power BI & DAX", level: 4 },
       { name: "PostgreSQL", level: 4 },
+      { name: "CRM Systems", level: 4 },
       { name: "Data Entry", level: 5 },
       { name: "Reporting", level: 5 },
-      { name: "Chart.js", level: 4 },
     ],
   },
   {
@@ -41,7 +41,7 @@ const categories = [
       { name: "REST APIs", level: 4 },
       { name: "Fetch API", level: 4 },
       { name: "Git", level: 4 },
-      { name: "RBAC", level: 4 },
+      { name: "Chart.js", level: 4 },
     ],
   },
 ];
@@ -53,12 +53,12 @@ const coreSkills = [
   "SQL",
   "Excel",
   "Power BI",
+  "DAX",
+  "CRM",
   "JavaScript",
   "REST APIs",
   "Git",
-  "RBAC",
-  "Bootstrap",
-  "Chart.js",
+  "Data Entry",
 ];
 
 const fadeUp = {
@@ -92,7 +92,6 @@ export default function Skills() {
       id="skills"
       className="relative w-full max-w-6xl mx-auto px-6 py-24 scroll-mt-24"
     >
-      {/* ── Heading ── */}
       <div className="mb-16 text-center">
         <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-3">
           02 — Skills
@@ -108,7 +107,6 @@ export default function Skills() {
         </p>
       </div>
 
-      {/* ── Three clean category cards ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
         {categories.map(
           ({ icon: Icon, title, accent, skills }, index) => {
@@ -127,7 +125,6 @@ export default function Skills() {
                     : "hover:border-cyan-500/40 hover:shadow-[0_0_40px_-12px_rgba(34,211,238,0.35)]"
                 }`}
               >
-                {/* Card header */}
                 <div className="flex items-center gap-3 mb-6 pb-4 border-b border-neutral-800">
                   <div
                     className={`flex h-10 w-10 items-center justify-center rounded-lg border ${
@@ -147,7 +144,6 @@ export default function Skills() {
                   </h3>
                 </div>
 
-                {/* Skill list with proficiency dots */}
                 <ul className="space-y-3.5">
                   {skills.map(({ name, level }) => (
                     <li
@@ -167,7 +163,6 @@ export default function Skills() {
         )}
       </div>
 
-      {/* ── Core competencies chips ── */}
       <div>
         <p className="text-center text-neutral-500 text-xs uppercase tracking-widest mb-4">
           Core Competencies

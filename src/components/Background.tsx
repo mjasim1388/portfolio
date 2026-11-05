@@ -29,13 +29,14 @@ export default function Background() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#07070b]" />
 
       <style jsx>{`
-.orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(80px);
-  opacity: 0.35;
-  will-change: transform;
-}
+        .orb {
+          position: absolute;
+          border-radius: 9999px;
+          filter: blur(80px);
+          opacity: 0.35;
+          will-change: transform;
+          transform: translateZ(0); /* Forces GPU acceleration */
+        }
         .orb-cyan {
           top: -15%;
           left: -10%;
@@ -62,16 +63,16 @@ export default function Background() {
           animation: float-c 34s ease-in-out infinite;
         }
         @keyframes float-a {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50%      { transform: translate(60px, 40px) scale(1.1); }
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          50%      { transform: translate3d(60px, 40px, 0) scale(1.1); }
         }
         @keyframes float-b {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50%      { transform: translate(-50px, 50px) scale(0.92); }
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          50%      { transform: translate3d(-50px, 50px, 0) scale(0.92); }
         }
         @keyframes float-c {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50%      { transform: translate(40px, -60px) scale(1.08); }
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          50%      { transform: translate3d(40px, -60px, 0) scale(1.08); }
         }
         @media (prefers-reduced-motion: reduce) {
           .orb { animation: none; }

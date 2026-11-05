@@ -1,0 +1,38 @@
+export const projectCaseStudies = [
+  {
+    slug: "coal-mining",
+    title: "Coal Mining Management System",
+    subtitle: "Full-Stack Django Application",
+    description: "A full-stack system to digitize mining operations, replacing manual paperwork with a centralized, role-based digital platform.",
+    techStack: ["Python", "Django", "PostgreSQL", "Bootstrap", "Chart.js"],
+    github: "https://github.com/mjasim1388/coal-mining-management-system",
+    image: "/coal-dashboard.png",
+    challenge: "The mining operation relied on disconnected Excel sheets and physical paperwork. Tracking daily production, employee attendance (which required photo verification), and payroll was prone to human error and data loss.",
+    solution: "I built a monolithic Django app utilizing PostgreSQL. I implemented a custom RBAC (Role-Based Access Control) system with 4 distinct roles (Admin, Manager, Supervisor, Worker). For attendance, I integrated a webcam API to capture photos directly in the browser.",
+    impact: "Reduced payroll calculation time by 80% and eliminated data redundancy. Managers can now view real-time production analytics via Chart.js dashboards.",
+  },
+  {
+    slug: "schoolpulse",
+    title: "SchoolPulse",
+    subtitle: "School Management SaaS",
+    description: "A modern school management platform that centralizes student records, attendance, staff, and analytics.",
+    techStack: ["Python", "Streamlit", "Supabase", "Plotly"],
+    github: "https://github.com/mjasim1388/schoolpulse",
+    image: "/schoolpulse-dashboard.png",
+    challenge: "Schools often use legacy, un-intuitive software. The goal was to create a lightweight, modern dashboard that admins, teachers, and parents could all navigate easily without training.",
+    solution: "I chose Streamlit for rapid UI development and Supabase for a serverless PostgreSQL backend. I used Streamlit-Lottie to add micro-animations for a modern feel, and Plotly for interactive analytics.",
+    impact: "Created a unified portal where admins can see high-level KPIs, teachers can mark attendance, and parents can view student progress in real-time.",
+  },
+  {
+    slug: "ecommerce-analytics",
+    title: "E-commerce Sales Analytics",
+    subtitle: "End-to-End Data Platform",
+    description: "An analytics platform processing 100K+ orders (~450K rows) from the Brazilian Olist dataset.",
+    techStack: ["Python", "PostgreSQL", "Streamlit", "Plotly", "pandas"],
+    github: "https://github.com/mjasim1388/ecommerce-analytics",
+    image: "/ecommerce-dashboard.png",
+    challenge: "Raw e-commerce data is messy. I needed to process a massive dataset (~450K rows) and extract meaningful business insights like revenue trends, cohort retention, and RFM segmentation without the dashboard lagging.",
+    solution: "I wrote 6 production-grade SQL queries using CTEs and Window Functions to do the heavy lifting in the database (PostgreSQL). Streamlit then queries these aggregated views, ensuring the app remains blazingly fast. I also added a CSV uploader with auto-column mapping.",
+    impact: "Turned a static dataset into an interactive tool that can instantly identify top-performing products, regional revenue drivers, and customer lifetime value.",
+  }
+];

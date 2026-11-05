@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, MapPin, ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -22,13 +23,15 @@ const container = {
   },
 };
 
+// Updated to include Data & Business tools
 const techStack = [
   { name: "Python", color: "#3776AB" },
   { name: "Django", color: "#0C4B33" },
   { name: "PostgreSQL", color: "#4169E1" },
-  { name: "JavaScript", color: "#F7DF1E" },
   { name: "Power BI", color: "#F2C811" },
-  { name: "Git", color: "#F05032" },
+  { name: "Excel", color: "#217346" },
+  { name: "JavaScript", color: "#F7DF1E" },
+  { name: "CRM", color: "#a855f7" },
 ];
 
 function TechBadge({ name, color }: { name: string; color: string }) {
@@ -96,14 +99,14 @@ export default function Hero() {
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 blur-xl opacity-40" />
             <div className="relative">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/profile.jpeg"
-                alt="Muhammad Jasim"
-                className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-neutral-800 ring-4 ring-neutral-900/60"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).style.display = "none";
-                }}
-              />
+<Image
+  src="/profile.jpeg"
+  alt="Muhammad Jasim"
+  width={128}
+  height={128}
+  className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-neutral-800 ring-4 ring-neutral-900/60"
+  priority // <-- This tells Next.js to load this immediately since it's above the fold
+/>
               <span className="absolute bottom-1 right-1 flex h-5 w-5">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40 animate-ping" />
                 <span className="relative inline-flex h-5 w-5 rounded-full bg-emerald-400 border-2 border-[#07070b]" />
@@ -130,7 +133,7 @@ export default function Hero() {
           variants={fadeUp}
           className="text-cyan-400 font-mono text-sm sm:text-base tracking-widest uppercase mb-6"
         >
-          CS Graduate · Django &amp; Python Developer
+          Full-Stack Developer & Data Analyst
         </motion.p>
 
         {/* ── Tagline ── */}
@@ -138,8 +141,9 @@ export default function Hero() {
           variants={fadeUp}
           className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          I build full-stack web applications and turn data into decisions.
-          Currently open to Data, Development, and Administration roles.
+          I build full-stack web applications with Django and turn data into
+          business decisions using SQL, Power BI, and CRM systems. Currently
+          open to Data, Development, and Administration roles.
         </motion.p>
 
         {/* ── CTAs ── */}
@@ -174,7 +178,7 @@ export default function Hero() {
         {/* ── Tech stack strip ── */}
         <motion.div variants={fadeUp} className="mb-14">
           <p className="text-neutral-600 text-[10px] uppercase tracking-[0.2em] mb-4">
-            Built with
+            My Core Stack
           </p>
           <div className="flex flex-wrap justify-center gap-2">
             {techStack.map((tech) => (
@@ -191,7 +195,7 @@ export default function Hero() {
           {[
             { value: "3", label: "Projects" },
             { value: "2+", label: "Years Experience" },
-            { value: "2", label: "Certifications" },
+            { value: "3", label: "Certifications" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-b from-white to-neutral-400 bg-clip-text text-transparent">

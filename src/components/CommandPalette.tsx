@@ -5,7 +5,7 @@ import { Command } from "cmdk";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Home, User, Wrench, Briefcase, FolderGit2, Award, Mail, 
-  Copy, CheckCircle2, MessageCircle, Code, Link
+  Copy, CheckCircle2, MessageCircle, Code, Link, FileText
 } from "lucide-react";
 
 export default function CommandPalette() {
@@ -86,6 +86,13 @@ export default function CommandPalette() {
                   <Item icon={FolderGit2} text="Projects" onSelect={() => runCommand(() => scrollTo("projects"))} />
                   <Item icon={Award} text="Certifications" onSelect={() => runCommand(() => scrollTo("certifications"))} />
                   <Item icon={Mail} text="Contact" onSelect={() => runCommand(() => scrollTo("contact"))} />
+                </Command.Group>
+
+                <Command.Separator className="my-1 h-px bg-neutral-800" />
+
+                <Command.Group heading="Pages" className="px-2 py-1.5 text-xs font-medium text-neutral-500">
+                  <Item icon={FileText} text="Dev Log / Blog" onSelect={() => runCommand(() => window.location.href = "/blog")} />
+                  <Item icon={FolderGit2} text="Case Studies" onSelect={() => runCommand(() => window.location.href = "/projects/coal-mining")} />
                 </Command.Group>
 
                 <Command.Separator className="my-1 h-px bg-neutral-800" />

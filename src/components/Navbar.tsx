@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import HireButton from "@/components/HireButton";
 
 const items = [
   { label: "about", href: "#about" },
   { label: "skills", href: "#skills" },
   { label: "experience", href: "#experience" },
   { label: "work", href: "#projects" },
+  { label: "blog", href: "/blog", external: true },
   { label: "contact", href: "#contact" },
 ];
 
@@ -25,7 +27,8 @@ export default function Navbar() {
 
   // Track active section via IntersectionObserver
   useEffect(() => {
-    const ids = ["home", ...items.map((i) => i.href.slice(1))];
+    // Only observe internal links (ignores /blog)
+    const ids = ["home", ...items.filter((i) => !i.external).map((i) => i.href.replace("#", ""))];
     const observers: IntersectionObserver[] = [];
 
     ids.forEach((id) => {
@@ -44,8 +47,12 @@ export default function Navbar() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  const go = (href: string) => {
+  const go = (href: string, external?: boolean) => {
     setOpen(false);
+    if (external) {
+      window.location.href = href;
+      return;
+    }
     const target = document.querySelector(href);
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -84,14 +91,14 @@ export default function Navbar() {
           {/* ── Center: nav links ── */}
           <ul className="hidden md:flex items-center gap-1 font-mono text-[11px]">
             {items.map((item) => {
-              const isActive = active === item.href.slice(1);
+              const isActive = active === item.href.replace("#", "");
               return (
                 <li key={item.href}>
                   <a
                     href={item.href}
                     onClick={(e) => {
-                      e.preventDefault();
-                      go(item.href);
+                      if (!item.external) e.preventDefault();
+                      go(item.href, item.external);
                     }}
                     className={`nav-link relative inline-block px-3 py-2 rounded-md uppercase tracking-[0.15em] transition-all duration-300 ease-out will-change-transform hover:-translate-y-0.5 ${
                       isActive
@@ -122,16 +129,7 @@ export default function Navbar() {
 
           {/* ── Right: hire_me + mobile ── */}
           <div className="flex items-center gap-2">
-            <a
-              href="mailto:jasimafridi1388@gmail.com"
-              className="hidden md:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-400/40 bg-cyan-400/5 text-cyan-400 text-[11px] font-mono uppercase tracking-wider transition-all duration-300 hover:bg-cyan-400/10 hover:scale-105 hover:shadow-[0_0_20px_-5px_rgba(34,211,238,0.5)]"
-            >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75 animate-ping" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400" />
-              </span>
-              hire_me
-            </a>
+            <HireButton />
 
             <button
               onClick={() => setOpen(!open)}
@@ -149,14 +147,14 @@ export default function Navbar() {
         <div className="md:hidden fixed inset-0 z-40 bg-[#07070b]/98 backdrop-blur-xl pt-24 px-6">
           <ul className="flex flex-col gap-2 font-mono">
             {items.map((item) => {
-              const isActive = active === item.href.slice(1);
+              const isActive = active === item.href.replace("#", "");
               return (
                 <li key={item.href}>
                   <a
                     href={item.href}
                     onClick={(e) => {
-                      e.preventDefault();
-                      go(item.href);
+                      if (!item.external) e.preventDefault();
+                      go(item.href, item.external);
                     }}
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm border transition-all duration-300 ${
                       isActive
@@ -171,12 +169,15 @@ export default function Navbar() {
               );
             })}
             <li className="mt-4">
-              <a
-                href="mailto:jasimafridi1388@gmail.com"
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-gradient-to-r from-cyan-400 to-violet-500 text-black font-semibold text-sm"
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-gradient-to-r from-cyan-400 to-violet-500 text-black font-semibold text-sm"
               >
                 hire_me
-              </a>
+              </button>
             </li>
           </ul>
         </div>
@@ -189,18 +190,15 @@ export default function Navbar() {
           51%, 100% { opacity: 0; }
         }
 
-        /* Smooth pop + glow on hover */
         .nav-link:hover {
           text-shadow: 0 0 12px rgba(34, 211, 238, 0.5);
         }
 
-        /* The hover underline animation */
         .nav-link:hover .nav-link-glow {
           width: 100%;
           transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Active link keeps the full underline */
         .nav-link .nav-link-glow {
           transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
