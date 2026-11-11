@@ -1,232 +1,131 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Mail, MapPin, ChevronDown } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, Terminal, Activity, Database, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const },
-  },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
 const container = {
   hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    },
-  },
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
 };
 
-// Updated to include Data & Business tools
-const techStack = [
-  { name: "Python", color: "#3776AB" },
-  { name: "Django", color: "#0C4B33" },
-  { name: "PostgreSQL", color: "#4169E1" },
-  { name: "Power BI", color: "#F2C811" },
-  { name: "Excel", color: "#217346" },
-  { name: "JavaScript", color: "#F7DF1E" },
-  { name: "CRM", color: "#a855f7" },
-];
-
-function TechBadge({ name, color }: { name: string; color: string }) {
-  return (
-    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-neutral-800 bg-neutral-950/60 backdrop-blur-sm">
-      <span
-        className="h-2 w-2 rounded-full"
-        style={{ backgroundColor: color }}
-      />
-      <span className="text-neutral-300 text-xs font-medium">{name}</span>
-    </div>
-  );
-}
-
-function smoothScroll(href: string) {
-  const target = document.querySelector(href);
-  if (target) {
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-}
-
 export default function Hero() {
+  // Simulate live data ticking
+  const [tons, setTons] = useState(1420.50);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTons(prev => prev + (Math.random() * 0.5));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="relative w-full pt-32 pb-20 min-h-screen flex items-center">
-      {/* ── Subtle corner accents ── */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-24 left-8 w-px h-32 bg-gradient-to-b from-transparent via-neutral-800 to-transparent" />
-        <div className="absolute top-24 right-8 w-px h-32 bg-gradient-to-b from-transparent via-neutral-800 to-transparent" />
-        <div className="absolute bottom-32 left-8 w-px h-24 bg-gradient-to-b from-transparent via-neutral-800 to-transparent" />
-        <div className="absolute bottom-32 right-8 w-px h-24 bg-gradient-to-b from-transparent via-neutral-800 to-transparent" />
-      </div>
-
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative max-w-4xl mx-auto px-6 text-center w-full"
-      >
-        {/* ── Availability + Location badges ── */}
-        <motion.div
-          variants={fadeUp}
-          className="flex flex-wrap items-center justify-center gap-3 mb-10"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            <span className="text-neutral-300 text-xs font-medium tracking-wide">
-              Available for work
-            </span>
-          </div>
-
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-800 bg-neutral-950/80 backdrop-blur-sm">
-            <MapPin className="h-3 w-3 text-cyan-400" />
-            <span className="text-neutral-300 text-xs font-medium tracking-wide">
-              Peshawar, Pakistan
-            </span>
-          </div>
-        </motion.div>
-
-        {/* ── Avatar with gradient halo + status ring ── */}
-        <motion.div variants={fadeUp} className="flex justify-center mb-8">
-          <div className="relative">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 blur-xl opacity-40" />
-            <div className="relative">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-<Image
-  src="/profile.jpeg"
-  alt="Muhammad Jasim"
-  width={128}
-  height={128}
-  className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-neutral-800 ring-4 ring-neutral-900/60"
-  priority // <-- This tells Next.js to load this immediately since it's above the fold
-/>
-              <span className="absolute bottom-1 right-1 flex h-5 w-5">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40 animate-ping" />
-                <span className="relative inline-flex h-5 w-5 rounded-full bg-emerald-400 border-2 border-[#07070b]" />
+    <section className="relative w-full min-h-[90vh] flex items-center pt-24 pb-12">
+      <motion.div variants={container} initial="hidden" animate="show" className="max-w-6xl mx-auto px-6 w-full">
+        
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* ── Left: Text ── */}
+          <div>
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-500 text-xs font-mono tracking-widest uppercase mb-8">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
               </span>
-            </div>
-          </div>
-        </motion.div>
+              Systems Operational
+            </motion.div>
 
-        {/* ── Name ── */}
-        <motion.h1
-          variants={fadeUp}
-          className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.05] mb-4"
-        >
-          <span className="bg-gradient-to-r from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent">
-            Muhammad
-          </span>{" "}
-          <span className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">
-            Jasim
-          </span>
-        </motion.h1>
+            <motion.h1 variants={fadeUp} className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-[1.05] mb-6">
+              I turn <span className="text-neutral-500 line-through decoration-neutral-700">paperwork</span> into <span className="text-amber-500">dashboards.</span>
+            </motion.h1>
 
-        {/* ── Role ── */}
-        <motion.p
-          variants={fadeUp}
-          className="text-cyan-400 font-mono text-sm sm:text-base tracking-widest uppercase mb-6"
-        >
-          Full-Stack Developer & Data Analyst
-        </motion.p>
+            <motion.p variants={fadeUp} className="text-lg text-neutral-400 max-w-lg mb-10 leading-relaxed">
+              I'm Muhammad Jasim, a Full-Stack Developer and Data Analyst. I bridge the gap between the shop floor and the server—building the Django systems that capture data, and the Power BI dashboards that explain it.
+            </motion.p>
 
-        {/* ── Tagline ── */}
-        <motion.p
-          variants={fadeUp}
-          className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
-        >
-          I build full-stack web applications with Django and turn data into
-          business decisions using SQL, Power BI, and CRM systems. Currently
-          open to Data, Development, and Administration roles.
-        </motion.p>
-
-        {/* ── CTAs ── */}
-        <motion.div
-          variants={fadeUp}
-          className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-12"
-        >
-          <a
-            href="#projects"
-            onClick={(e) => {
-              e.preventDefault();
-              smoothScroll("#projects");
-            }}
-            className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors cursor-pointer"
-          >
-            View Projects
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              smoothScroll("#contact");
-            }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-neutral-800 bg-neutral-950/60 text-neutral-200 font-semibold text-sm hover:border-cyan-400/50 hover:text-cyan-400 transition-colors cursor-pointer"
-          >
-            <Mail className="h-4 w-4" />
-            Get in Touch
-          </a>
-        </motion.div>
-
-        {/* ── Tech stack strip ── */}
-        <motion.div variants={fadeUp} className="mb-14">
-          <p className="text-neutral-600 text-[10px] uppercase tracking-[0.2em] mb-4">
-            My Core Stack
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {techStack.map((tech) => (
-              <TechBadge key={tech.name} name={tech.name} color={tech.color} />
-            ))}
-          </div>
-        </motion.div>
-
-        {/* ── Stats ── */}
-        <motion.div
-          variants={fadeUp}
-          className="grid grid-cols-3 gap-4 max-w-2xl mx-auto pt-10 border-t border-neutral-800/60"
-        >
-          {[
-            { value: "100K+", label: "Orders Analyzed" },
-            { value: "4", label: "RBAC Roles Built" },
-            { value: "6", label: "SQL Analyses" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="text-3xl sm:text-4xl font-bold bg-gradient-to-b from-white to-neutral-400 bg-clip-text text-transparent">
-                {stat.value}
-              </p>
-              <p className="text-neutral-500 text-xs sm:text-sm mt-2 uppercase tracking-wider">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* ── Scroll indicator ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="flex justify-center mt-16"
-        >
-          <div className="flex flex-col items-center gap-2 text-neutral-600">
-            <span className="text-[10px] uppercase tracking-[0.3em]">
-              Scroll
-            </span>
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <ChevronDown className="h-4 w-4" />
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 mb-12">
+              <Link href="#projects" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-amber-500 text-black font-semibold text-sm hover:bg-amber-400 transition-colors">
+                View Systems <ArrowRight className="h-4 w-4" />
+              </Link>
+              <button 
+                onClick={() => document.dispatchEvent(new Event("open-command-palette"))}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-neutral-800 bg-neutral-900/50 text-neutral-300 font-medium text-sm hover:border-amber-500/50 hover:text-white transition-colors"
+              >
+                <Terminal className="h-4 w-4" /> Press <kbd className="font-mono bg-neutral-800 px-1.5 py-0.5 rounded text-xs">⌘K</kbd> to explore
+              </button>
             </motion.div>
           </div>
-        </motion.div>
+
+          {/* ── Right: Live Ops Panel ── */}
+          <motion.div variants={fadeUp} className="relative">
+            {/* Glow behind panel */}
+            <div className="absolute inset-0 bg-amber-500/5 blur-[100px] rounded-full" />
+            
+            <div className="relative rounded-xl border border-neutral-800 bg-[#0a0a0a] shadow-2xl overflow-hidden">
+              {/* Panel Header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-800 bg-neutral-900/50">
+                <div className="flex items-center gap-2">
+                  <div className="h-3 w-3 rounded-full bg-red-500/20 border border-red-500/50" />
+                  <div className="h-3 w-3 rounded-full bg-amber-500/20 border border-amber-500/50" />
+                  <div className="h-3 w-3 rounded-full bg-green-500/20 border border-green-500/50" />
+                </div>
+                <div className="text-[10px] font-mono text-neutral-500 tracking-wider">
+                  COAL_MINING_OPS // LIVE
+                </div>
+              </div>
+
+              {/* Panel Content */}
+              <div className="p-6 space-y-6">
+                {/* Metric 1 */}
+                <div>
+                  <div className="flex items-center justify-between text-xs font-mono text-neutral-500 mb-2">
+                    <span className="flex items-center gap-1.5"><Activity className="h-3 w-3" /> DAILY_PRODUCTION</span>
+                    <span className="text-green-400">+2.4%</span>
+                  </div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-bold text-white font-mono">{tons.toFixed(2)}</span>
+                    <span className="text-sm text-neutral-500 font-mono">TONS</span>
+                  </div>
+                  {/* Fake Sparkline chart */}
+                  <div className="h-10 mt-3 flex items-end gap-1">
+                    {[40, 70, 45, 90, 65, 85, 100, 75, 95, 80].map((h, i) => (
+                      <div key={i} className="flex-1 bg-amber-500/20 rounded-t-sm" style={{ height: `${h}%` }} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Metric 2 */}
+                  <div className="p-3 rounded-lg bg-neutral-900 border border-neutral-800">
+                    <div className="text-[10px] font-mono text-neutral-500 mb-1 flex items-center gap-1"><Database className="h-3 w-3" /> PAYROLL</div>
+                    <div className="text-sm font-semibold text-white">Verified</div>
+                  </div>
+                  {/* Metric 3 */}
+                  <div className="p-3 rounded-lg bg-neutral-900 border border-neutral-800">
+                    <div className="text-[10px] font-mono text-neutral-500 mb-1 flex items-center gap-1"><ShieldCheck className="h-3 w-3" /> RBAC_ACCESS</div>
+                    <div className="text-sm font-semibold text-white">4 Roles Active</div>
+                  </div>
+                </div>
+
+                {/* Terminal log */}
+                <div className="text-[10px] font-mono text-neutral-500 bg-black p-3 rounded-md border border-neutral-800">
+                  <p><span className="text-amber-500">$</span> system.status --all</p>
+                  <p className="text-green-400">✓ Attendance synced (142 photos)</p>
+                  <p className="text-green-400">✓ Payroll calculated (0 errors)</p>
+                  <p className="text-amber-500 animate-pulse">_</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+        </div>
       </motion.div>
     </section>
   );

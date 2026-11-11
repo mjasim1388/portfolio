@@ -1,35 +1,41 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import SmoothScroll from "@/components/SmoothScroll"; // <-- Imported
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const spaceGrotesk = Space_Grotesk({ 
+  variable: "--font-space", 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"]
+});
+
+const jetbrainsMono = JetBrains_Mono({ 
+  variable: "--font-mono", 
+  subsets: ["latin"] 
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://muhammad-jasim.vercel.app"),
   title: "Muhammad Jasim — Full-Stack Developer & Data Analyst",
-  description: "Portfolio of Muhammad Jasim. Building full-stack web applications and turning data into business decisions.",
-  keywords: ["Muhammad Jasim", "Django Developer", "Python Developer", "Full-Stack Developer", "Data Analyst", "Power BI", "SQL", "Peshawar", "Pakistan"],
+  description: "I turn paperwork into dashboards. Full-stack developer and data analyst based in Peshawar, Pakistan.",
+  keywords: ["Muhammad Jasim", "Django Developer", "Data Analyst", "Power BI", "SQL", "Peshawar"],
   authors: [{ name: "Muhammad Jasim" }],
-  creator: "Muhammad Jasim",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://muhammad-jasim.vercel.app",
-    siteName: "Muhammad Jasim — Portfolio",
+    siteName: "Muhammad Jasim",
     title: "Muhammad Jasim — Full-Stack Developer & Data Analyst",
-    description: "Full-stack projects, data analytics, and certifications. Open to Data, Dev & Admin roles.",
+    description: "I turn paperwork into dashboards.",
   },
-  twitter: { card: "summary", title: "Muhammad Jasim", description: "Full-stack projects and data analytics." },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-[#07070b] text-neutral-100">
-        <SmoothScroll>{children}</SmoothScroll> {/* <-- Wrapped */}
+    <html lang="en" className={`dark ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-[#0a0a0a] text-neutral-200 font-sans">
+        <SmoothScroll>{children}</SmoothScroll>
         <Analytics />
       </body>
     </html>

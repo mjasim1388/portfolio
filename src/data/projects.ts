@@ -46,6 +46,7 @@ export const projectCaseStudies = [
     features: coalFeatures,
     challenge: "The mining operation relied on disconnected Excel sheets and physical paperwork. Tracking daily production, employee attendance (which required photo verification), and payroll was prone to human error and data loss.",
     solution: "I built a monolithic Django app utilizing PostgreSQL. I implemented a custom RBAC (Role-Based Access Control) system with 4 distinct roles (Admin, Manager, Supervisor, Worker). For attendance, I integrated a webcam API to capture photos directly in the browser.",
+    tradeoffs: "While Django templates with Bootstrap allowed for rapid development and a low learning curve, if I were to build this today, I would separate the backend into a Django REST Framework API and build a React/Next.js frontend for a more interactive, app-like experience on the factory floor.",
     impact: "Reduced payroll calculation time by 80% and eliminated data redundancy. Managers can now view real-time production analytics via Chart.js dashboards.",
   },
   {

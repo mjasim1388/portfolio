@@ -54,13 +54,12 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#07070b]/70 backdrop-blur-xl border-b border-neutral-800/50 py-3"
+            ? "bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-neutral-800/50 py-3"
             : "bg-transparent border-b border-transparent py-5"
         }`}
       >
         <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between">
           
-          {/* ── Left: Logo / Name ── */}
           <a
             href="#home"
             onClick={(e) => {
@@ -72,10 +71,9 @@ export default function Navbar() {
             <span className="text-white font-semibold text-lg tracking-tight hover:text-neutral-300 transition-colors">
               Muhammad Jasim
             </span>
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
           </a>
 
-          {/* ── Center: Nav Links ── */}
           <ul className="hidden lg:flex items-center gap-8 text-sm font-medium text-neutral-400">
             {items.map((item) => {
               const isActive = active === item.href.replace("#", "");
@@ -104,7 +102,7 @@ export default function Navbar() {
                   >
                     {item.label}
                     {isActive && (
-                      <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400" />
+                      <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-amber-500" />
                     )}
                   </a>
                 </li>
@@ -112,10 +110,7 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* ── Right: Search + CTA ── */}
           <div className="flex items-center gap-4">
-            
-            {/* Command K Button */}
             <button
               onClick={triggerSearch}
               className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-md border border-neutral-800 bg-neutral-900/50 text-neutral-400 text-xs font-medium hover:border-neutral-700 hover:text-white transition-all group"
@@ -127,20 +122,18 @@ export default function Navbar() {
               </kbd>
             </button>
 
-            {/* Premium CTA */}
             <a
               href="#contact"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-colors"
+              className="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-lg bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-colors"
             >
               Let's Talk
               <ArrowUpRight className="h-4 w-4" />
             </a>
 
-            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setOpen(!open)}
               className="lg:hidden flex h-9 w-9 items-center justify-center text-neutral-300 hover:text-white transition-colors"
@@ -151,9 +144,8 @@ export default function Navbar() {
         </nav>
       </header>
 
-      {/* ── Mobile Menu Overlay ── */}
       {open && (
-        <div className="lg:hidden fixed inset-0 z-40 bg-[#07070b]/98 backdrop-blur-xl pt-24 px-6 flex flex-col">
+        <div className="lg:hidden fixed inset-0 z-40 bg-[#0a0a0a]/98 backdrop-blur-xl pt-24 px-6 flex flex-col">
           <ul className="flex flex-col gap-6 text-lg font-medium text-neutral-300">
             {items.map((item) => {
               if (item.external) {
@@ -201,7 +193,7 @@ export default function Navbar() {
                 setOpen(false);
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-white text-black font-semibold"
+              className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg bg-amber-500 text-black font-semibold"
             >
               Let's Talk <ArrowUpRight className="h-4 w-4" />
             </a>

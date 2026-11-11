@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import RbacDemo from "@/components/RbacDemo";
 import { ArrowLeft, ExternalLink, Code } from "lucide-react";
 import { projectCaseStudies } from "@/data/projects";
 
@@ -82,6 +83,27 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
             <p className="text-neutral-300 leading-relaxed text-lg">{project.impact}</p>
           </section>
         </div>
+
+                  {/* Only show the RBAC demo for the Coal Mining project */}
+          {project.slug === "coal-mining" && (
+            <section>
+               <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                <span className="text-amber-500 font-mono text-lg">04.</span> Interactive Permissions Demo
+              </h2>
+              <p className="text-neutral-300 leading-relaxed text-lg mb-6">
+                Since the application requires an enterprise database to run, I built this static simulation to demonstrate how the Django RBAC middleware protects routes and dynamically renders the UI based on the user's role.
+              </p>
+                        {project.tradeoffs && (
+            <section>
+              <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                <span className="text-amber-500 font-mono text-lg">04.</span> Trade-offs & Learnings
+              </h2>
+              <p className="text-neutral-300 leading-relaxed text-lg">{project.tradeoffs}</p>
+            </section>
+          )}
+              <RbacDemo />
+            </section>
+          )}
       </article>
     </main>
   );
