@@ -11,13 +11,6 @@ const recommendations = [
     role: "Operations Manager",
     company: "Kohat Cement Factory",
   },
-  // You can add a second recommendation here later
-  // {
-  //   text: "...",
-  //   author: "...",
-  //   role: "...",
-  //   company: "...",
-  // }
 ];
 
 const fadeUp = {
@@ -57,8 +50,7 @@ export default function Recommendations() {
             transition={{ delay: i * 0.1 }}
             className="relative rounded-2xl border border-neutral-800 bg-[#0a0a0a] p-8 sm:p-10 transition-all duration-300 hover:border-amber-500/30"
           >
-            {/* Giant Quote Icon Background */}
-            <Quote className="absolute top-6 right-8 h-20 w-20 text-neutral-800/30 -z-0 rotate-180" />
+            <Quote className="absolute top-6 right-8 h-20 w-20 text-neutral-800/30 z-0 rotate-180" />
 
             <div className="relative z-10">
               <p className="text-neutral-300 text-lg sm:text-xl leading-relaxed mb-8 italic">
@@ -66,7 +58,6 @@ export default function Recommendations() {
               </p>
               
               <div className="flex items-center gap-4">
-                {/* Initials Avatar */}
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-900 border border-neutral-800 text-amber-500 font-bold text-lg">
                   {rec.author.split(" ").map(n => n[0]).join("")}
                 </div>
@@ -79,8 +70,8 @@ export default function Recommendations() {
               </div>
             </div>
             
-            {/* Subtle amber top border accent */}
-            <div className="absolute top-0 left-10 right-10 h-[1px] bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
+            {/* Fixed line below: bg-linear-to-r */}
+            <div className="absolute top-0 left-10 right-10 h-px bg-linear-to-r from-transparent via-amber-500/50 to-transparent" />
           </motion.div>
         ))}
       </div>

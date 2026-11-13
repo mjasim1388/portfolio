@@ -33,8 +33,8 @@ export const projectCaseStudies = [
     title: "Coal Mining Management System",
     subtitle: "Full-Stack Django Application",
     description: "A full-stack system to digitize mining operations, replacing manual paperwork with a centralized, role-based digital platform.",
-    techStack: ["Python", "Django", "PostgreSQL", "Bootstrap", "Chart.js"],
-    stack: ["Django", "Python", "PostgreSQL", "Chart.js", "Bootstrap", "REST APIs", "RBAC"],
+    techStack: ["Python", "Django", "PostgreSQL", "Bootstrap 5", "Chart.js", "OpenPyXL"],
+    stack: ["Django", "Python", "PostgreSQL", "Bootstrap 5", "Chart.js", "OpenPyXL", "RBAC"],
     github: "https://github.com/mjasim1388/coal-mining-management-system",
     image: "/coal-dashboard.png",
     screenshots: [
