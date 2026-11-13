@@ -7,13 +7,12 @@ import Hero from "@/components/Hero";
 
 const Currently = dynamic(() => import("@/components/Currently"));
 const About = dynamic(() => import("@/components/About"));
-const GitHubStats = dynamic(() => import("@/components/GitHubStats"));
 const HowIWork = dynamic(() => import("@/components/HowIWork"));
 const Skills = dynamic(() => import("@/components/Skills"));
 const Experience = dynamic(() => import("@/components/Experience"));
 const Projects = dynamic(() => import("@/components/Projects"));
 const Certifications = dynamic(() => import("@/components/Certifications"));
-const Recommendations = dynamic(() => import("@/components/Recommendations")); // <-- Imported
+const Recommendations = dynamic(() => import("@/components/Recommendations"));
 const Contact = dynamic(() => import("@/components/Contact"));
 const Footer = dynamic(() => import("@/components/Footer"));
 
@@ -31,13 +30,13 @@ export default function Home() {
         </section>
         <Currently />
         <About />
-        <GitHubStats />
+        {/* GitHubStats removed from here */}
         <HowIWork />
         <Skills />
         <Experience />
         <Projects />
         <Certifications />
-        <Recommendations /> {/* <-- Added here */}
+        <Recommendations />
         <Contact />
         <Footer />
       </div>

@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Terminal, Activity, Database, ShieldCheck } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const fadeUp = {
@@ -26,8 +25,22 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+  const scrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="relative w-full min-h-[90vh] flex items-center pt-24 pb-12">
+      {/* Global keyframes for the button shimmer effect */}
+      <style jsx global>{`
+        @keyframes shimmer {
+          100% {
+            transform: translateX(100%);
+          }
+        }
+      `}</style>
+
       <motion.div variants={container} initial="hidden" animate="show" className="max-w-6xl mx-auto px-6 w-full">
         
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -46,20 +59,37 @@ export default function Hero() {
               I turn <span className="text-neutral-500 line-through decoration-neutral-700">paperwork</span> into <span className="text-amber-500">dashboards.</span>
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="text-lg text-neutral-400 max-w-lg mb-10 leading-relaxed">
-              I'm Muhammad Jasim, a Full-Stack Developer and Data Analyst. I bridge the gap between the shop floor and the server—building the Django systems that capture data, and the Power BI dashboards that explain it.
+            <motion.p variants={fadeUp} className="text-lg text-neutral-400 max-w-xl mb-10 leading-relaxed">
+              I specialize in building robust <span className="text-white font-medium">POS systems, management software, and data dashboards</span>. By leveraging AI in my workflow, I ship faster and build smarter systems that automate operations and turn raw data into clear business insights.
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Link href="#projects" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-amber-500 text-black font-semibold text-sm hover:bg-amber-400 transition-colors">
-                View Systems <ArrowRight className="h-4 w-4" />
-              </Link>
-              <button 
-                onClick={() => document.dispatchEvent(new Event("open-command-palette"))}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-neutral-800 bg-neutral-900/50 text-neutral-300 font-medium text-sm hover:border-amber-500/50 hover:text-white transition-colors"
+              {/* Primary Button */}
+              <a 
+                href="#projects" 
+                onClick={scrollToProjects}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-amber-500 text-black font-semibold text-sm hover:bg-amber-400 transition-colors cursor-pointer"
               >
-                <Terminal className="h-4 w-4" /> Press <kbd className="font-mono bg-neutral-800 px-1.5 py-0.5 rounded text-xs">⌘K</kbd> to explore
-              </button>
+                View Systems <ArrowRight className="h-4 w-4" />
+              </a>
+              
+              {/* ── Animated VengeanceUI-Style Command Button ── */}
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => document.dispatchEvent(new Event("open-command-palette"))}
+                className="group relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#0a0a0a] text-neutral-300 font-medium text-sm border border-neutral-800 hover:border-amber-500/50 hover:text-white transition-all overflow-hidden cursor-pointer shadow-[0_0_15px_-3px_rgba(0,0,0,0.5)]"
+              >
+                {/* Shimmer Effect Overlay */}
+                <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-amber-500/10 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
+                
+                {/* Glowing Border Effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_center,rgba(245,158,11,0.15),transparent_70%)] pointer-events-none" />
+
+                <Terminal className="h-4 w-4 text-amber-500 group-hover:animate-pulse transition-colors" /> 
+                <span className="relative z-10">Command Menu</span> 
+                <kbd className="relative z-10 ml-1 font-mono bg-neutral-900 border border-neutral-700/50 px-1.5 py-0.5 rounded text-[10px] text-neutral-400 group-hover:text-amber-400 group-hover:border-amber-500/50 transition-colors">⌘K</kbd> 
+              </motion.button>
             </motion.div>
           </div>
 
